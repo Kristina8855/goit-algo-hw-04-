@@ -43,9 +43,54 @@ cats = get_cats_info('cats.txt')
 for cat in cats:
     print(cat)
 
+# 3
+from pathlib import Path
+def parse_input(user_input):
+    tokens = user_input.split()
+    command = tokens[0].lower()  # перший елемент - команда
+    args = tokens[1:]  # решта елементів - аргументи
+    return command, args
+contacts = {}
+def add_contact(name, phone_number):
+    contacts[name] = phone_number
+    print("Contact added.")
+def change_contact(name, new_phone_number):
+    if name in contacts:
+        contacts[name] = new_phone_number
+        print("Contact updated.")
+    else:
+        print("Contact not found.")
+def show_phone(name):
+    if name in contacts:
+        print(contacts[name])
+    else:
+        print("Contact not found.")
 
 
+def show_all():
+    for name, phone_number in contacts.items():
+        print(f"{name}: {phone_number}")
 
 
+def main():
+    while True:
+        user_input = input("Enter a command: ")
+        command, args = parse_input(user_input)
+
+        if command == "add":
+            add_contact(*args)
+        elif command == "change":
+            change_contact(*args)
+        elif command == "phone":
+            show_phone(*args)
+        elif command == "all":
+            show_all()
+        elif command == "close" or command == "exit":
+            print("Good bye!")
+            break
+        else:
+            print("Invalid command. Try again.")
 
 
+if __name__ == "__main__":
+    main()
